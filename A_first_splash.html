@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Number guessing game</title>
+
+    <style>
+      html {
+        font-family: sans-serif;
+      }
+
+      body {
+        width: 50%;
+        max-width: 800px;
+        min-width: 480px;
+        margin: 0 auto;
+      }
+      
+      .form input[type="number"] {
+        width: 200px;
+      }
+
+      .lastResult {
+        color: white;
+        padding: 3px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Number guessing game</h1>
+
+    <p>We have selected a random number between 1 and 100. See if you can guess it in 10 turns or fewer. We'll tell you if your guess was too high or too low.</p>
+
+    <div class="form">
+      <label for="guessField">Enter a guess: </label>
+      <input type="number" min="1" max="100" required id="guessField" class="guessField">
+      <input type="submit" value="Submit guess" class="guessSubmit">
+    </div>
+
+    <div class="resultParas">
+      <p class="guesses"></p>
+      <p class="lastResult"></p>
+      <p class="lowOrHi"></p>
+    </div>
+
+    <script>
+      // 변수 및 상수 설정
+      let randomNumber = Math.floor(Math.random()*100) + 1
+
+      // html 코드를 참조하는 변수
+      const guesses = document.querySelector(".guesses");
+      const lastResult = document.querySelector(".lastResult");
+      const lowOrHi = document.querySelector(".lowOrHi");
+
+      const guessSubmit = document.querySelector(".guessSubmit");
+      const guessField = document.querySelector(".guessField");
+
+      let guessCount = 1;
+      let resetButton;
+
+      function checkGuess(){
+        
+        const userGuess = Number(guessField.value);
+
+        // 10회가 넘을 경우
+        if (guessCount === 1){
+          guesses.textContent = "Previous guesses: ";
+        }
+        guesses.textContent += userGuess + " ";
+
+        if (guessCount > 10){
+          lastResult.textContent = "!!! GAME OVER !!!";
+          lowOrHi.textContent = "";
+          setGameOver();
+        }
+
+        // 10회 이하일 경우
+        else if (guessCount <= 10){
+
+          // 정답일 경우
+          if (userGuess === randomNumber) {
+            lastResult.textContent = "Congratulations! You got it right!";
+            lastResult.style.backgroundColor = "green";
+            lowOrHi.textContent = "";
+            setGameOver();
+          }
+
+          // 정답보다 작을 경우
+          else if (userGuess < randomNumber) {
+            lowOrHi.textContent = "Last guess was too low!";
+          } 
+          
+          // 정답보다 클 경우
+          else if (userGuess > randomNumber){
+            lowOrHi.textContent = "Last Guess was too high!"
+          }
+        }
+
+        guessCount ++ ;
+        guessField.value = "";
+        guessField.focus();
+        
+
+        
+        // 첫 입력
+        /*
+        if (guessCount === 1){
+          guesses.textContent = "Previous guesses: ";
+        }
+        guesses.textContent += userGuess + " ";
+
+        // 정답인 경우
+        if (userGuess === randomNumber){
+          lastResult.textContent = "Congratulations! You got it right!";
+          lastResult.style.backgroundColor = "green";
+          lowOrHi.textContent = "";
+          setGameOVer();
+        }
+
+        // 10회 이상 초과
+        else if (guessCount === 10){
+          lastResult.textContent = "!!! GAME OVER !!!";
+          lowOrHi.textContent = "";
+          setGameOVer();
+        } 
+        
+        // 10회 이내 오답
+        else{
+          lastResult.textContent = "Wrong!";
+          lastResult.style.backgroundColor = "red";
+          if (userGuess < randomNumber) {
+            lowOrHi.textContent = "Last guess was too low!";
+          } else if (userGuess > randomNumber){
+            lowOrHi.textContent = "Last Guess was too high!"
+          }
+        }
+
+        guessCount ++ ;
+        guessField.value = "";
+
+        // 페이지 로딩이 끝나면 텍스트 커서가 자동으로 input에 가도록 함.
+        guessField.focus();
+        */
+      }
+       
+
+
+      guessSubmit.addEventListener("click", checkGuess);
+
+      // 게임 종료 함수 생성
+      function setGameOver() {
+          // 비활성화
+          guessField.disabled = true;
+          guessSubmit.disabled = true;
+
+          // 게임 재시작 버튼 생성
+          resetButton = document.createElement("button");
+          resetButton.textContent = "Start new game";
+          document.body.append(resetButton);
+          resetButton.addEventListener("click", resetGame);
+      }
+
+      // 게임 재개 함수 생성
+      function resetGame() {
+          guessCount = 1;
+
+          // 모든 p 태그에 있는 요소 제거
+          const resetParas = document.querySelectorAll(".resultParas p");
+          for (const resetPara of resetParas) {
+            resetPara.textContent = "";
+          }
+
+          resetButton.parentNode.removeChild(resetButton);
+
+          guessField.disabled = false;
+          guessSubmit.disabled = false;
+          guessField.value = "";
+          guessField.focus();
+
+          lastResult.style.backgroundColor = "white";
+
+          randomNumber = Math.floor(Math.random() * 100) + 1;
+        }
+
+    </script>
+  </body>
+</html>
