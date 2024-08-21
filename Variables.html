@@ -11,14 +11,19 @@
     <h3 id="heading_A"></h3>
 
     <script>
+        // html 문서를 참조할 변수 지정
         const buttonA = document.querySelector("#button_A");
         const headingA = document.querySelector("#heading_A");
 
+        // 이벤트 생성
         buttonA.onclick = () => {
+            // name 변수 생성 
             const name = prompt("What is your name?");
             alert(`Hello ${name}, nice to see you!`);
             headingA.textContent = `Welcome ${name}`;
         };
+
+        
     </script>
 </body>
 </html>
