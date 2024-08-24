@@ -4,11 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+        h2 {font-family : "Inter", sans-serif;}
+        p {font-family : "Inter", sans-serif;}
+
+    </style>
 </head>
 <body>
-    <h1>Seoul  </h1>
-    <svg id="chart" width="1200" height="500"></svg>
-    <script type="module" src="seoul_precipitation.js"></script>
+    <div class='body'>
+        <h2>It's getting pouring in Seoul</h2>
+        <p>Precipitation in Seoul from 2015 to 2024 by Day.</p>
+
+        <!-- select time scale -->
+        <div>
+            <button id="day">Day</button>
+            <button id="month">Month</button>
+            <button id="year">Year</button>
+        </div>
+        <svg id="chart" width="1200" height="500"></svg>
+    </div>
+    <script type="module" src="seoul_precipitation_update.js"></script>
 </body>
 </html>
 

@@ -63,5 +63,13 @@ function createChart(data)  {
         .datum(data)
         .attr("fill", "steelblue")
         .attr("d", area);
+
+    // Add title
+    // svg.append("text")
+    //     .attr("x", (width / 2))             
+    //     .attr("y", margin.top)
+    //     .attr("text-anchor", "left")
+    //     .attr("class", "title")
+    //     .text("It's getting pouring in Seoul");
 }
 
